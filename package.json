@@ -11,7 +11,7 @@
     "typescript": "^5.7.2"
   },
   "scripts": {
-    "dev": "bun run index.ts"
+    "dev": "bun run src/main.ts"
   },
   "dependencies": {
     "express": "^4.21.2",
