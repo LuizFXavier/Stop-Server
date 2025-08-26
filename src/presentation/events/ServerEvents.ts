@@ -1,5 +1,6 @@
 import type Carta from "@/domain/entities/Carta";
 import type Player from "@/domain/entities/Player";
+import { estadoSala } from "@/infrastructure/shared/estadoSala";
 
 export interface ServerToClientEvents {
     salaID:(salaID:string) => void;

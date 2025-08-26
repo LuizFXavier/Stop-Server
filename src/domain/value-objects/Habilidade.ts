@@ -1,3 +1,5 @@
+import { estadoHab } from "@/infrastructure/shared/estadoHab";
+
 export default class Habilidade{
     
     id:number;

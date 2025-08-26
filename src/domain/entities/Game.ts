@@ -4,6 +4,7 @@ import Baralho from "@/domain/entities/Baralho";
 import Habilidade from "@/domain/value-objects/Habilidade";
 import HabilidadeTroca from "@/domain/value-objects/HabilidadeTroca";
 import HabilidadeCompra from "@/domain/value-objects/HabilidadeCompra";
+import { estadoHab } from "@/infrastructure/shared/estadoHab";
 
 export class Game{
     

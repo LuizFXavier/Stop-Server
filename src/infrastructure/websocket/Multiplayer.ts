@@ -2,6 +2,8 @@ import http from "http"
 import { Server, Socket } from "socket.io";
 import type { ClientToServerEvents, InterServerEvents, ServerToClientEvents, SocketData } from "../../presentation/events/ServerEvents";
 import { Sala } from "@/domain/aggregates/Sala";
+import { estadoHab } from "@/infrastructure/shared/estadoHab";
+import { estadoSala } from "@/infrastructure/shared/estadoSala";
 
 export class Multiplayer{
 
