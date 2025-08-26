@@ -1,5 +1,3 @@
-import 'reflect-metadata';
-import '@/infrastructure/shared/container'; 
 import express from 'express';
 import { config } from '@/config';
 import { errorHandlerMiddleware } from '@/infrastructure/http/middlewares/errorHandler.middleware';
