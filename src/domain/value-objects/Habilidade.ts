@@ -1,6 +1,5 @@
-import { estadoHab } from "../types/estadoHab";
-
 export default class Habilidade{
+    
     id:number;
     playerID:number;
     estado:estadoHab = estadoHab.pergunta;

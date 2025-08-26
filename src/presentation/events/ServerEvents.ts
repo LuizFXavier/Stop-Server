@@ -1,6 +1,5 @@
-import type Carta from "../Game/GameObject/Carta";
-import type Player from "../Game/GameObject/Player";
-import type { estadoSala } from "../Game/types/estadoSala";
+import type Carta from "@/domain/entities/Carta";
+import type Player from "@/domain/entities/Player";
 
 export interface ServerToClientEvents {
     salaID:(salaID:string) => void;

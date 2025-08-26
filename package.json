@@ -4,11 +4,11 @@
   "type": "module",
   "devDependencies": {
     "@types/bun": "latest",
-    "@types/express": "^5.0.0",
+    "@types/express": "^5.0.3",
     "@types/socket.io": "^3.0.2"
   },
   "peerDependencies": {
-    "typescript": "^5.0.0"
+    "typescript": "^5.7.2"
   },
   "scripts": {
     "dev": "bun run index.ts"

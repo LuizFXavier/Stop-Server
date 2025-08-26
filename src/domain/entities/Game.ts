@@ -1,14 +1,11 @@
-import { Server } from "socket.io";
-import Player from "./GameObject/Player";
-import Carta from "./GameObject/Carta";
-import Baralho from "./GameObject/Baralho";
-import type { corte } from "./types/corte";
-import Habilidade from "./habilidade/Habilidade";
-import HabilidadeTroca from "./habilidade/HabilidadeTroca";
-import HabilidadeCompra from "./habilidade/HabilidadeCompra";
-import { estadoHab } from "./types/estadoHab";
+import Player from "@/domain/entities/Player";
+import Carta from "@/domain/entities/Carta";
+import Baralho from "@/domain/entities/Baralho";
+import Habilidade from "@/domain/value-objects/Habilidade";
+import HabilidadeTroca from "@/domain/value-objects/HabilidadeTroca";
+import HabilidadeCompra from "@/domain/value-objects/HabilidadeCompra";
 
-export default class Game{
+export class Game{
     
     players:Player[] = []
 

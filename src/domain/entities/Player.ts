@@ -1,4 +1,4 @@
-import Carta from "./Carta";
+import Carta from "@/domain/entities/Carta";
 
 export default class Player{
 

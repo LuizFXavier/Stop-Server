@@ -1,5 +1,5 @@
-import type Game from "../Game";
-import Habilidade from "./Habilidade";
+import { Game } from "@/domain/entities/Game";
+import Habilidade from "@/domain/value-objects/Habilidade";
 
 export default class HabilidadeTroca extends Habilidade{
 
