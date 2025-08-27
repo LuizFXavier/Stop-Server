@@ -1,6 +1,6 @@
-import Game from "../Game/Game";
+import { Game } from "@/domain/entities/Game";
 
-export default class Sala{
+export class Sala{
 
     public host:string;
     public gameRunnig:boolean = false

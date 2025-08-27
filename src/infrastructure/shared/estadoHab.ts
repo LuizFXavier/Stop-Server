@@ -1,4 +1,4 @@
-export enum estadoHab{
+export const enum estadoHab {
     inativa,
     pergunta,
     aguardo,

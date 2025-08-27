@@ -1,11 +1,11 @@
 import http from "http"
 import { Server, Socket } from "socket.io";
-import type { ClientToServerEvents, InterServerEvents, ServerToClientEvents, SocketData } from "./ServerEvents";
-import Sala from "./Sala";
-import { estadoHab } from "../Game/types/estadoHab";
-import { estadoSala } from "../Game/types/estadoSala";
+import type { ClientToServerEvents, InterServerEvents, ServerToClientEvents, SocketData } from "../../presentation/events/ServerEvents";
+import { Sala } from "@/domain/aggregates/Sala";
+import { estadoHab } from "@/infrastructure/shared/estadoHab";
+import { estadoSala } from "@/infrastructure/shared/estadoSala";
 
-export default class Multiplayer{
+export class Multiplayer{
 
     private static SALAS = new Map<string, Sala>();
     

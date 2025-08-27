@@ -1,6 +1,7 @@
-import { estadoHab } from "../types/estadoHab";
+import { estadoHab } from "@/infrastructure/shared/estadoHab";
 
 export default class Habilidade{
+    
     id:number;
     playerID:number;
     estado:estadoHab = estadoHab.pergunta;
