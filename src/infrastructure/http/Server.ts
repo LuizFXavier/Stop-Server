@@ -1,8 +1,9 @@
 import express from 'express';
+import http from "http"
 import { config } from '@/config';
 import { errorHandlerMiddleware } from '@/infrastructure/http/middlewares/errorHandler.middleware';
 import { Multiplayer } from '@/infrastructure/websocket/Multiplayer';
-import http from "http"
+import { WsServer } from '@/infrastructure/websocket/WsServer';
 
 export class Server {
 
@@ -37,12 +38,9 @@ export class Server {
 
     private initSocketIO() {
 
-        Multiplayer.setIO(this._server)
+        WsServer.setIO(this._server)
         
-        Multiplayer.io.on("connection", (socket)=>{
-            Multiplayer.startPageEvents(socket)
-            Multiplayer.startGameEvents(socket)
-        })
+        WsServer.init()
 
     }
 

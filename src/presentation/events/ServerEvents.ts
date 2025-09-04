@@ -1,3 +1,4 @@
+import { SkillUseDTO } from "@/application/dto/skill.dto";
 import type Carta from "@/domain/entities/Carta";
 import type Player from "@/domain/entities/Player";
 import { estadoSala } from "@/infrastructure/shared/estadoSala";
@@ -40,10 +41,10 @@ export interface ClientToServerEvents {
     stop:(obj:{salaID:string, playerID:number}) => void;
 
     //Eventos habilidade
-    aceitarHabilidade:(obj:{salaID:string, playerID:number, habilidadeID:number}) => void;
-    negarHabilidade:(obj:{salaID:string, playerID:number, habilidadeID:number}) => void;
-    enviarHabilidade:(obj:{salaID:string, playerID:number, habilidadeID:number}, hab:any) => void;
-    usouHabilidade:(obj:{salaID:string, playerID:number, habilidadeID:number}) => void;
+    aceitarHabilidade:(obj: SkillUseDTO) => void;
+    negarHabilidade:(obj: SkillUseDTO) => void;
+    enviarHabilidade:(obj: SkillUseDTO, hab:any) => void;
+    usouHabilidade:(obj: SkillUseDTO) => void;
 }
 
 export interface InterServerEvents {
