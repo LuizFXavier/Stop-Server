@@ -114,7 +114,9 @@ export class GameRepository implements IGameRepository {
             if (GameRepository.count == null)
                 GameRepository.count = -1
 
-            const id = GameRepository.count + 1
+            GameRepository.count += 1
+
+            const id = GameRepository.count
 
             game.id = id
 

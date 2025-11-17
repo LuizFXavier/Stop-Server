@@ -5,18 +5,21 @@
   "devDependencies": {
     "@types/bun": "latest",
     "@types/express": "^5.0.3",
+    "@types/nodemailer": "^7.0.3",
     "@types/socket.io": "^3.0.2"
   },
   "peerDependencies": {
     "typescript": "^5.7.2"
   },
   "scripts": {
-    "dev": "bun run src/main.ts"
+    "dev": "bun run src/main.ts",
+    "table:create": "bun run src/infrastructure/database/postgresql/scripts/create.pg.ts"
   },
   "dependencies": {
     "@types/cors": "^2.8.19",
     "cors": "^2.8.5",
     "express": "^4.21.2",
+    "nodemailer": "^7.0.10",
     "socket.io": "^4.8.1"
   }
 }

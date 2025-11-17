@@ -1,8 +1,12 @@
 import { GameEndResDTO, StopRequestDTO, WrongStopResDTO } from "@/application/dto/game.dto"
+import { User } from "@/domain/entities/User"
 import { GameRepository } from "@/infrastructure/database/Memory/repositories/Game.repository"
 import { PlayerRepository } from "@/infrastructure/database/Memory/repositories/Player.repository"
+import { UserRepository } from "@/infrastructure/database/postgresql/repositories/User.repository"
 
 export const stop = (dto: StopRequestDTO) => {
+
+    const userOrm = new UserRepository()
 
     const gameOrm = new GameRepository()
 
@@ -64,16 +68,31 @@ export const stop = (dto: StopRequestDTO) => {
 
     const competitors = playersOrder.filter(p => p.points == minPoints) 
 
-    let idWinner = player.id
+    let playerWinner = player
 
-    if (competitors.find(p => p.id != player.id))
-        idWinner = competitors[0].id!
+    if (competitors.find(p => p.id != player.id)) {
+        playerWinner = competitors[0]
+    }
+    
+    try {
+
+        let user: User
+
+        userOrm.getByID(playerWinner.userID).then(u => user = u)
+
+        user!.winners = user!.winners + 1 
+
+        userOrm.save(user!)
+
+    } catch (e) {
+        console.log("[stop-case]: não foi possivel achar usuario do player", playerWinner);
+    }
 
     return [
         true,
         {
             res: {
-                idWinner: idWinner,
+                idWinner: playerWinner.id,
                 playerIDStop: player.id,
                 points: points
             },

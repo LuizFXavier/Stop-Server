@@ -9,7 +9,7 @@ export const roomController = {
 
         const dto = req.body as CreateRoomDTO
 
-        const roomID = createRoom(dto)
+        const roomID = await createRoom(dto)
 
         res.status(200).json({
             roomID: roomID

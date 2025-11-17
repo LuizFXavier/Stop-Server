@@ -1,12 +1,12 @@
 import { CreateGuestUserReponseDTO } from "@/application/dto/user.dto"
-import { User } from "@/domain/entities/GuestUser"
-import { UserRepository } from "@/infrastructure/database/Memory/repositories/GuestUser.repository"
+import { GuestUser } from "@/domain/entities/GuestUser"
+import { GuestUserRepository } from "@/infrastructure/database/Memory/repositories/GuestUser.repository"
 
 export const createGuestUser = () => {
 
-    const orm = new UserRepository()
+    const orm = new GuestUserRepository()
 
-    const user = new User()
+    const user = GuestUser.create()
 
     orm.save(user)
 

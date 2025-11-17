@@ -1,10 +1,13 @@
 import { GameInitDTO, RoomDTO } from "@/application/dto/room.dto";
 import { Card } from "@/domain/entities/Card";
 import { GameRepository } from "@/infrastructure/database/Memory/repositories/Game.repository";
+import { PlayerRepository } from "@/infrastructure/database/Memory/repositories/Player.repository";
 
 export const gameInit = (dto: RoomDTO) => {
 
     const gameOrm = new GameRepository()
+
+    const playerOrm = new PlayerRepository()
 
     const game = gameOrm.getByRoomId(dto.roomID)
 
@@ -18,8 +21,13 @@ export const gameInit = (dto: RoomDTO) => {
 
     for(let i = 0; i < players.length; i++) {
 
-        for(let j = 0; j < game.rules.get("numCartas")!; j++) 
+        for(let j = 0; j < game.rules.get("numCartas")!; j++) {
+
             players[i].hand.push(game.stack.pop()!)
+
+            playerOrm.save(players[i])
+
+        }
 
         playersCards.push({
             id: players[i].id!,
@@ -29,6 +37,8 @@ export const gameInit = (dto: RoomDTO) => {
     }
 
     game.turn = 0
+
+    gameOrm.save(game)
 
     console.log(game.playersId)
     console.log(game.roomId, "começou")

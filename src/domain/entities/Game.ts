@@ -32,7 +32,7 @@ export class Game {
         this.roomId = roomId
         this.gameRunnig = false
 
-        this.rules.set("as", 0)
+        /*this.rules.set("as", 0)
         this.rules.set("coringa", 0)
         this.rules.set("tirar10", 0)
         this.rules.set("6", 0)
@@ -42,7 +42,7 @@ export class Game {
         this.rules.set("10", 1)
         this.rules.set("Q", 1)
         this.rules.set("J", 1)
-        this.rules.set("numCartas", 4)
+        this.rules.set("numCartas", 4)*/
 
     }
 

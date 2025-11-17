@@ -1,13 +1,20 @@
 import { randomUUIDv7 } from "bun"
+import { PlayerUser } from "./PlayerUser"
 
-export class User {
+export class GuestUser extends PlayerUser {
 
-    public readonly id: string
-    public name: string
+    private constructor(id: string, name: string) {
+        super(id, name) 
+    }
 
-    constructor(name?: string) {
-        this.id = randomUUIDv7("hex")
-        this.name = name ?? "guest_" + this.id.split('-')[4] 
+    public static create(name?: string) {
+
+        const id = randomUUIDv7("hex")
+
+        const username = name ?? "guest_" + id.split('-')[4]
+
+        return new GuestUser(id, username)
+
     }
 
 }

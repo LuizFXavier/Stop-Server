@@ -50,13 +50,8 @@ export class RoomRepository implements IRoomRepository {
         const rooms: Room[] = []
 
         for (const [_, r] of RoomRepository.data) 
-            if (r.isPublic) {
-
+            if (r.isPublic) 
                 rooms.push(r)
-
-                break
-
-            }
 
         return rooms
 

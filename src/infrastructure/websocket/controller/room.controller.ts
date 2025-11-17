@@ -6,13 +6,13 @@ import { SocketRouter, WsServer } from "@/infrastructure/websocket/WsServer"
 
 export const roomController =  {
 
-    joinRoom: (socket: SocketRouter, dto: JoinRoomDTO) => {
+    joinRoom: async(socket: SocketRouter, dto: JoinRoomDTO) => {
 
         let joinConfig: JoinConfigDTO
 
         try {
             
-            joinConfig = joinRoom(dto)
+            joinConfig = await joinRoom(dto)
 
         } catch (e) {
             console.error(e);

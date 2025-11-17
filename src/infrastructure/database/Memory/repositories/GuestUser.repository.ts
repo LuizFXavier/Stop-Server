@@ -1,14 +1,14 @@
 import { GuestUserDontExistError } from "@/application/errors/GuestUserDontExist.error";
-import { User } from "@/domain/entities/GuestUser";
+import { GuestUser } from "@/domain/entities/GuestUser";
 import { IUserRepository } from "@/domain/repositories/IUserRepository";
 
-export class UserRepository implements IUserRepository {
+export class GuestUserRepository implements IUserRepository<GuestUser> {
 
-    private static data = new Map<string, User>
+    private static data = new Map<string, GuestUser>
 
-    getByID(id: string): User {
+    getByID(id: string): GuestUser {
         
-        const room = UserRepository.data.get(id)
+        const room = GuestUserRepository.data.get(id)
         
         if (!room)
             throw GuestUserDontExistError
@@ -17,15 +17,15 @@ export class UserRepository implements IUserRepository {
 
     }
     existByID(id: string): boolean {
-        return UserRepository.data.has(id)
+        return GuestUserRepository.data.has(id)
     }
 
-    save(user: User): void {
-        UserRepository.data.set(user.id, user)
+    save(GuestUser: GuestUser): void {
+        GuestUserRepository.data.set(GuestUser.id, GuestUser)
     }
 
-    delete(user: User): void {
-        UserRepository.data.delete(user.id)
+    delete(GuestUser: GuestUser): void {
+        GuestUserRepository.data.delete(GuestUser.id)
     }
 
 }

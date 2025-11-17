@@ -65,9 +65,13 @@ export class PlayerRepository implements IPlayerRepository {
             if (PlayerRepository.count == null)
                 PlayerRepository.count = -1
 
-            const id = PlayerRepository.count + 1
+            PlayerRepository.count += 1
+
+            const id = PlayerRepository.count
 
             player.id = id
+
+            console.log(PlayerRepository.count, player.id);
 
         }
 

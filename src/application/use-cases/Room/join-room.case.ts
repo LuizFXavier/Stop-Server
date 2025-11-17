@@ -3,9 +3,12 @@ import { Player } from "@/domain/entities/Player";
 import { GameRepository } from "@/infrastructure/database/Memory/repositories/Game.repository";
 import { PlayerRepository } from "@/infrastructure/database/Memory/repositories/Player.repository";
 import { RoomRepository } from "@/infrastructure/database/Memory/repositories/Room.repository";
-import { UserRepository } from "@/infrastructure/database/Memory/repositories/GuestUser.repository";
+import { GuestUserRepository } from "@/infrastructure/database/Memory/repositories/GuestUser.repository";
+import { UserRepository } from "@/infrastructure/database/postgresql/repositories/User.repository";
+import { GuestUser } from "@/domain/entities/GuestUser";
+import { User } from "@/domain/entities/User";
 
-export const joinRoom = (dto: JoinRoomDTO) => {
+export const joinRoom = async(dto: JoinRoomDTO) => {
 
     const roomOrm = new RoomRepository()
 
@@ -13,25 +16,43 @@ export const joinRoom = (dto: JoinRoomDTO) => {
 
     const gameOrm = new GameRepository()
 
+    const guestUserOrm = new GuestUserRepository()
+
     const userOrm = new UserRepository()
 
     const room = roomOrm.getByID(dto.roomID)
 
-    let player = playerOrm.getByUserID(dto.userID)
+    const game = gameOrm.getByRoomId(dto.roomID)
 
-    if (!player) {
+    let player: Player
 
-        const user = userOrm.getByID(dto.userID)
+    try {
+     
+        player = playerOrm.getByUserID(dto.userID)
 
-        player = new Player(user.name, user.id)
+    } catch (error) {
+
+        console.log(`[joinRoom]: não foi achado player com userID de ${dto.userID}, fazendo procedimento de criar player`);
+
+        let user: User | GuestUser  
+        
+        if (guestUserOrm.existByID(dto.userID))
+            user = guestUserOrm.getByID(dto.userID)
+    
+        else
+            user = await userOrm.getByID(dto.userID)
+
+        player = new Player(user!.name, user!.id)
 
         player.id = playerOrm.save(player)
+
+        game.playersId.push(player.id)
+
+        gameOrm.save(game)
 
     }
 
     const identifier = player.id!
-
-    const game = gameOrm.getByRoomId(dto.roomID)
 
     const players = gameOrm.getAllPlayersByRoomID(dto.roomID)
 
