@@ -14,6 +14,11 @@ export interface JoinRoomDTO {
     userID: string
 }
 
+export interface JoinPrivateRoomDTO {
+    roomID: string,
+    password: string
+}
+
 export interface CreateRoomDTO {
     userID: string
     password?: string

@@ -1,5 +1,6 @@
 import { CreateRoomDTO } from "@/application/dto/room.dto"
 import { createRoom } from "@/application/use-cases/Room/create-room.case"
+import { joinPrivateRoom } from "@/application/use-cases/Room/join-private-room.case"
 import { listRoom } from "@/application/use-cases/Room/list-room.case"
 import { Request, Response } from "express"
 
@@ -23,6 +24,16 @@ export const roomController = {
 
         res.status(200).json({
             rooms: rooms
+        })
+
+    },
+
+    async joinPrivateRoom(req: Request, res: Response) {
+
+        const ok = joinPrivateRoom(req.body)
+
+        res.status(200).json({
+            ok: ok
         })
 
     }

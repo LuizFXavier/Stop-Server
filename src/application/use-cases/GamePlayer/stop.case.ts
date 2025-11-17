@@ -18,7 +18,7 @@ export const stop = (dto: StopRequestDTO) => {
                 
     const player = playerOrm.getByID(dto.playerID)
 
-    if (player.id !== (game.turn % game.playersId.length) || player.purchased.rank !== -1) {
+    if (players[(game.turn % game.playersId.length)].id != player.id || player.purchased.rank !== -1) {
         
         let cartaPenal = game.stack.pop()!
         
@@ -70,9 +70,9 @@ export const stop = (dto: StopRequestDTO) => {
 
     let playerWinner = player
 
-    if (competitors.find(p => p.id != player.id)) {
+    if (competitors.find(p => p.id != player.id)) 
         playerWinner = competitors[0]
-    }
+    
     
     try {
 

@@ -25,7 +25,7 @@ export class GameRepository implements IGameRepository {
             }
 
         if (!game)
-            throw GameDontExistError
+            throw new GameDontExistError()
 
         return game 
 
@@ -34,12 +34,12 @@ export class GameRepository implements IGameRepository {
 
     getByID(id: number): Game {
 
-        const room = GameRepository.data.get(id)
+        const game = GameRepository.data.get(id)
 
-        if (!room)
-            throw RoomDontExistError
+        if (!game)
+            throw new GameDontExistError(id)
 
-        return room
+        return game
 
     }
 
@@ -62,7 +62,7 @@ export class GameRepository implements IGameRepository {
         }
 
         if (!players)
-            throw PlayerDontExistError
+            throw new PlayerDontExistError()
 
         return players 
 
@@ -95,7 +95,7 @@ export class GameRepository implements IGameRepository {
             }
 
         if (!game)
-            throw GameDontExistError
+            throw new GameDontExistError()
 
         return game 
 

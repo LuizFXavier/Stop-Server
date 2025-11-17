@@ -27,7 +27,7 @@ export class RoomRepository implements IRoomRepository {
         const room = RoomRepository.data.get(id)
 
         if (!room)
-            throw RoomDontExistError
+            throw new RoomDontExistError()
 
         return room
 
@@ -49,9 +49,15 @@ export class RoomRepository implements IRoomRepository {
         
         const rooms: Room[] = []
 
-        for (const [_, r] of RoomRepository.data) 
+        for (const [_, r] of RoomRepository.data) {
+         
+            console.log(r.id, r.isPublic);
+            
+         
             if (r.isPublic) 
                 rooms.push(r)
+
+        }
 
         return rooms
 

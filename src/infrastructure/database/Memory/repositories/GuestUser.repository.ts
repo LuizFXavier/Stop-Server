@@ -8,12 +8,12 @@ export class GuestUserRepository implements IUserRepository<GuestUser> {
 
     getByID(id: string): GuestUser {
         
-        const room = GuestUserRepository.data.get(id)
+        const user = GuestUserRepository.data.get(id)
         
-        if (!room)
-            throw GuestUserDontExistError
+        if (!user)
+            throw new GuestUserDontExistError(id)
 
-        return room
+        return user
 
     }
     existByID(id: string): boolean {

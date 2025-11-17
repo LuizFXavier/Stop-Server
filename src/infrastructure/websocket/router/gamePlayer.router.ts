@@ -11,7 +11,7 @@ export const gamePlayerRouter = (socket: SocketRouter) => {
     socket.on("buyStack", (dto: PlayerActionDTO) => errorHandlerMiddleware(() => { gamePlayerController.buyStack(dto) }))
     socket.on("buyDiscard", (dto: PlayerActionDTO) => errorHandlerMiddleware(() => { gamePlayerController.buyDiscard(dto) }))
     socket.on("exchangeCard", (dto: PlayerIndexCardDTO) => errorHandlerMiddleware(() => { gamePlayerController.exchangeCard(dto) }))
-    socket.on("discard", (dto: RoomDTO) => errorHandlerMiddleware(() => { gamePlayerController.discard(dto) }, dto.roomID))
+    socket.on("discard", (dto: PlayerActionDTO) => errorHandlerMiddleware(() => { gamePlayerController.discard(dto) }))
     socket.on("endTurn", (dto: RoomDTO) => errorHandlerMiddleware(() => { gamePlayerController.endTurn(dto) }, dto.roomID))
     socket.on("cut", (dto: PlayerIndexCardDTO) => errorHandlerMiddleware(() => { gamePlayerController.cut(dto) }))
     socket.on("stopRequest", (dto: StopRequestDTO) => errorHandlerMiddleware(() => { gamePlayerController.stopRequest(dto) }))

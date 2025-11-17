@@ -11,37 +11,55 @@ export const gameInit = (dto: RoomDTO) => {
 
     const game = gameOrm.getByRoomId(dto.roomID)
 
-    game.gameRunnig = true;
+    const playersCards: { id: number, cards: {rank: number, suit: number}[] }[] = []
 
-    game.stack = createDeck();
-    
-    const players = gameOrm.getAllPlayersByRoomID(dto.roomID)
+    if (game.gameRunnig) {
 
-    let playersCards: { id: number, cards: {rank: number, suit: number}[] }[] = []
+        const players = gameOrm.getAllPlayersByRoomID(dto.roomID)
 
-    for(let i = 0; i < players.length; i++) {
+        for (let i = 0; i < players.length; i++) 
+            playersCards.push({
+                id: players[i].id!,
+                cards: players[i].hand
+            })
 
-        for(let j = 0; j < game.rules.get("numCartas")!; j++) {
 
-            players[i].hand.push(game.stack.pop()!)
+    } 
+    else {
 
-            playerOrm.save(players[i])
+        game.gameRunnig = true;
+
+        game.stack = createDeck();
+        
+        const players = gameOrm.getAllPlayersByRoomID(dto.roomID)
+
+        for (let i = 0; i < players.length; i++) {
+
+            for (let j = 0; j < game.rules.get("numCartas")!; j++) {
+
+                players[i].hand.push(game.stack.pop()!)
+
+                playerOrm.save(players[i])
+
+            }
+
+            playersCards.push({
+                id: players[i].id!,
+                cards: players[i].hand
+            })
 
         }
 
-        playersCards.push({
-            id: players[i].id!,
-            cards: players[i].hand
-        })
+        game.turn = 0
+
+        gameOrm.save(game)
 
     }
 
-    game.turn = 0
-
-    gameOrm.save(game)
-
     console.log(game.playersId)
     console.log(game.roomId, "começou")
+    console.log(playersCards);
+    
 
     return {
         playersCards: playersCards,

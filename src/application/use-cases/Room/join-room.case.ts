@@ -24,13 +24,11 @@ export const joinRoom = async(dto: JoinRoomDTO) => {
 
     const game = gameOrm.getByRoomId(dto.roomID)
 
-    let player: Player
+    const players = gameOrm.getAllPlayersByRoomID(dto.roomID)
 
-    try {
-     
-        player = playerOrm.getByUserID(dto.userID)
+    let player = players.find(p => p.userID == dto.userID)
 
-    } catch (error) {
+    if (!player) {
 
         console.log(`[joinRoom]: não foi achado player com userID de ${dto.userID}, fazendo procedimento de criar player`);
 
@@ -46,6 +44,8 @@ export const joinRoom = async(dto: JoinRoomDTO) => {
 
         player.id = playerOrm.save(player)
 
+        players.push(player)
+
         game.playersId.push(player.id)
 
         gameOrm.save(game)
@@ -53,8 +53,6 @@ export const joinRoom = async(dto: JoinRoomDTO) => {
     }
 
     const identifier = player.id!
-
-    const players = gameOrm.getAllPlayersByRoomID(dto.roomID)
 
     const playerRes: Players = []
 

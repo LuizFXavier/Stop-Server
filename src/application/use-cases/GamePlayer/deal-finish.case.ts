@@ -22,6 +22,8 @@ export const dealFinish = (dto: RoomDTO) => {
 
     }
 
+    console.log("[dealFinish]: valor contador", i , res);
+
     gameOrm.save(game)
 
     return res

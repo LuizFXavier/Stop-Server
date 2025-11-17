@@ -8,12 +8,12 @@ export class Room {
     public password?: string
     public isPublic: boolean
 
-    constructor(hostID: string, password?: string) {
+    constructor(hostID: string, password: string) {
 
         this.id = gerarID();
         this.hostID = hostID;
         this.password = password
-        this.isPublic = typeof password !== "string" 
+        this.isPublic = password.trim().length === 0
 
     }
 

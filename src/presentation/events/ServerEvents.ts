@@ -59,7 +59,7 @@ export interface ClientToServerEvents {
 
     exchangeCard: (dto: PlayerIndexCardDTO) => void;
 
-    discard: (dto: RoomDTO) => void;
+    discard: (dto: PlayerActionDTO) => void;
 
     endTurn: (dto: RoomDTO) => void;
 

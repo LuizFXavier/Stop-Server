@@ -8,4 +8,6 @@ roomRouter.post("/create", authMiddleware, roomController.createRoom)
 
 roomRouter.get("/list/public", authMiddleware, roomController.listAllPublicRoom)
 
+roomRouter.post("/join/private", authMiddleware, roomController.joinPrivateRoom)
+
 export { roomRouter }

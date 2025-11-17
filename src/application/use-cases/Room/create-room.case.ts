@@ -34,7 +34,7 @@ export const createRoom = async(roomDTO: CreateRoomDTO) => {
 
     const playerId = playerOrm.save(player)
 
-    const room = new Room(roomDTO.userID)
+    const room = new Room(roomDTO.userID, roomDTO.password!)
 
     roomOrm.save(room)
 

@@ -69,22 +69,22 @@ export const cutting = (dto: PlayerIndexCardDTO): (boolean | PlayerIndexCardResD
     console.log("playerComprou", cut.playerBuy)
     console.log("houveCorte", game.isCut)
 
-    let penalCard: Card | null = null
+    if (lastDiscard.rank != cut.card.rank) {
 
-    if (
-        game.isCut || 
-        cut.playerBuy || 
-        !lastDiscard || 
-        cut.card.rank !== lastDiscard.rank
-    ) {
-
-        penalCard = game.stack.pop()!
+        const penalCard = game.stack.pop()!
 
         const playerCut = playerOrm.getByID(cut.id)
 
-        playerCut.hand[cut.indexCard].rank = cut.card.rank;
-        playerCut.hand[cut.indexCard].rank = cut.card.suit;
+        console.log(`[cutting]: ${playerCut.hand} | ${cut.indexCard} | ${cut.card.rank} & ${cut.card.suit}`);
 
+        if(cut.indexCard === undefined || cut.indexCard >= playerCut.hand.length)
+            playerCut.hand.push(cut.card)
+
+        else {
+            playerCut.hand[cut.indexCard].rank = cut.card.rank;
+            playerCut.hand[cut.indexCard].suit = cut.card.suit;
+        }
+        
         for (let i = 0; i < playerCut.hand.length; i++) {
             
             if (playerCut.hand[i].rank === -1) {
@@ -97,20 +97,10 @@ export const cutting = (dto: PlayerIndexCardDTO): (boolean | PlayerIndexCardResD
         }
 
         playerCut.hand.push(penalCard)
+
+        gameOrm.save(game)
         
-    }
-    else {
-        game.discard.push(cut.card)
-        game.isCut = true;
-    }
-
-    gameOrm.save(game)
-
-    playerOrm.save(player)
-
-    console.log("computou corte")
-
-    if (game.isCut) {
+        playerOrm.save(playerCut)
 
         return [
             false,
@@ -124,7 +114,15 @@ export const cutting = (dto: PlayerIndexCardDTO): (boolean | PlayerIndexCardResD
             } as WrongCutResDTO
         ]
 
-    } 
+    }
+    
+    game.isCut = true;
+
+    game.discard.push(cut.card)
+
+    gameOrm.save(game)
+
+    console.log("computou corte")
     
     return [
         true,

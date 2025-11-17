@@ -27,6 +27,8 @@ export const buyDiscard = (dto: PlayerActionDTO) => {
 
     playerOrm.save(player)
 
+    console.log(`[buyDiscard]: ${player.id} | ${card}`);
+
     return {
         roomID: game.roomId,
         res: {

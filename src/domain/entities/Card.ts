@@ -8,4 +8,8 @@ export class Card {
         this.suit = suit;
     }
 
+    toString() {
+        return `{ rank: ${this.rank}, suit: ${this.suit} }`
+    }
+
 }

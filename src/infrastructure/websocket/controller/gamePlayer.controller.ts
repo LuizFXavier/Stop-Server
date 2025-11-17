@@ -4,12 +4,12 @@ import { buyDiscard } from "@/application/use-cases/GamePlayer/buy-discard.case"
 import { exchangeCard } from "@/application/use-cases/GamePlayer/exchange-card.case";
 import { cutting } from "@/application/use-cases/GamePlayer/cutting-case";
 import { discard } from "@/application/use-cases/GamePlayer/discard.case";
-import { SkillUseDTO } from "@/application/dto/skill.dto";
 import { stop } from "@/application/use-cases/GamePlayer/stop.case";
 import { RoomDTO } from "@/application/dto/room.dto";
 import { dealFinish } from "@/application/use-cases/GamePlayer/deal-finish.case";
 import { GameEndResDTO, PlayerActionDTO, PlayerIndexCardDTO, PlayerIndexCardResDTO, StopRequestDTO, WrongCutResDTO, WrongStopResDTO } from "@/application/dto/game.dto";
 import { endTurn } from "@/application/use-cases/GamePlayer/end-turn.case";
+import { spyFinish } from "@/application/use-cases/GamePlayer/spy-finish";
 
 export const gamePlayerController = {
 
@@ -52,7 +52,7 @@ export const gamePlayerController = {
 
     spyFinish: (dto: RoomDTO) => {
 
-        const yes = false
+        const yes = spyFinish(dto)
 
         if (yes)
             WsServer.io.to(dto.roomID).emit("spyFinish")
@@ -71,7 +71,7 @@ export const gamePlayerController = {
 
         const resDTO = buyDiscard(dto)
 
-        WsServer.io.to(resDTO.roomID).emit("buyStack", resDTO.res)
+        WsServer.io.to(resDTO.roomID).emit("buyDiscard", resDTO.res)
 
     },
 
@@ -83,11 +83,11 @@ export const gamePlayerController = {
 
     },
 
-    discard: (dto: RoomDTO) => {
+    discard: (dto: PlayerActionDTO) => {
 
-        discard()
+        const roomID = discard(dto)
 
-        WsServer.io.to(dto.roomID).emit("discard")
+        WsServer.io.to(roomID).emit("discard")
 
     },
 
@@ -103,6 +103,8 @@ export const gamePlayerController = {
 
         const [yes, resDTOAbstract] = cutting(dto)
 
+        console.log("[cut]:", yes, resDTOAbstract);
+        
         if (yes) {
 
             const resDTO = resDTOAbstract as PlayerIndexCardResDTO

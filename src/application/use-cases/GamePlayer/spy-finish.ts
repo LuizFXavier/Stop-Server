@@ -22,6 +22,8 @@ export const spyFinish = (dto: RoomDTO) => {
 
     }
 
+    console.log("[spyFinish]: valor contador", i , res);
+
     gameOrm.save(game)
 
     return res

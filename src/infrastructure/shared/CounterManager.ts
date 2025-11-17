@@ -24,9 +24,11 @@ export class CounterManager {
         if (!p)
             return -1
             
-        this.counterMap.set(name, { value: p.value + 1, init: p.init})
+        const newValue = p.value + 1
 
-        return p.value
+        this.counterMap.set(name, { value: newValue, init: p.init})
+
+        return newValue
 
     }
 

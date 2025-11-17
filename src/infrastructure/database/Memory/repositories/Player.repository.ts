@@ -5,16 +5,16 @@ import { IPlayerRepository } from "@/domain/repositories/IPlayerRepository";
 export class PlayerRepository implements IPlayerRepository {
 
     private static data: Map<number, Player> = new Map<number, Player>();
-    private static count: number | null = null
+    private static count: number = 0
 
     getByID(id: number): Player {
 
-        const room = PlayerRepository.data.get(id)
+        const player = PlayerRepository.data.get(id)
 
-        if (!room)
-            throw PlayerDontExistError
+        if (!player)
+            throw new PlayerDontExistError(id)
 
-        return room
+        return player
 
     }
 
@@ -32,7 +32,7 @@ export class PlayerRepository implements IPlayerRepository {
         }
 
         if (!player)
-            throw PlayerDontExistError
+            throw new PlayerDontExistError()
 
         return player 
 
@@ -62,10 +62,7 @@ export class PlayerRepository implements IPlayerRepository {
 
         if (!player.id) {
 
-            if (PlayerRepository.count == null)
-                PlayerRepository.count = -1
-
-            PlayerRepository.count += 1
+            PlayerRepository.count++
 
             const id = PlayerRepository.count
 

@@ -2,6 +2,7 @@ import { User } from "@/domain/entities/User"
 import { pg } from "../connection/pg"
 import { IUserRepository } from "@/domain/repositories/IUserRepository";
 import { UserDontExistError } from "@/application/errors/UserDontExist.error";
+import { EmailDontExistError } from "@/application/errors/EmailDontExist.error";
 
 export class UserRepository implements IUserRepository<User> {
 
@@ -13,7 +14,7 @@ export class UserRepository implements IUserRepository<User> {
         `
 
         if (!users[0])
-            throw new UserDontExistError;
+            throw new UserDontExistError(id);
             
         const user = User.persistenceToDomain(users[0])
 
@@ -29,7 +30,7 @@ export class UserRepository implements IUserRepository<User> {
         `
 
         if (!users[0])
-            throw new UserDontExistError;
+            throw new EmailDontExistError(email);
             
         const user = User.persistenceToDomain(users[0])
 
