@@ -13,6 +13,8 @@
   },
   "scripts": {
     "dev": "bun run src/main.ts",
+    "build": "bun build src/main.ts --outdir dist --bytecode --minify --sourcemap --target=bun",
+    "start": "bun run dist/main.js",
     "table:create": "bun run src/infrastructure/database/postgresql/scripts/create.pg.ts"
   },
   "dependencies": {
